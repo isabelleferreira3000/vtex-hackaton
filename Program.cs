@@ -6,6 +6,7 @@ public static class Database
 	public static List<Seller> sellers = new List<Seller>();
 	public static List<Customer> customers = new List<Customer>();
 	public static List<Review> reviews = new List<Review>();
+	public static List<Goods> goodsList = new List<Goods>();
 	
 	public static Seller getSellerById(int id_seller) {
 		Seller sellerFinded = new Seller();
@@ -56,35 +57,94 @@ public class Review
 
 public class Goods
 {
+	public static int count = 0;
+	
 	public int id;
 	public int id_seller;
 	public string type;
+	
+	public Goods(){
+		count = count + 1;
+		this.id = count;
+	}
+	
+	public Goods(string type){
+		count = count + 1;
+		this.id = count;
+		this.type = type;
+	}
 }
 
 public class Seller
 {
+	public static int count = 0;
+	
 	public int id;
 	public int cpf;
 	public string name;
 	public string address;
-	// public List<Review> reviews = new List<Review>();
+	public List<Review> reviews = new List<Review>();
+	public List<Goods> goodsList = new List<Goods>();
+	public List<string> types = new List<string>();
+	
+	public Seller(){
+		count = count + 1;
+		this.id = count;
+	}
+	
+	public Seller(int cpf, string name, string address){
+		count = count + 1;
+		this.id = count;
+		this.cpf = cpf;
+		this.name = name;
+		this.address = address;
+	}
+	
+	public void addGoods(string type){
+		Goods newGoods = new Goods(type);
+		Database.goodsList.Add(newGoods);
+		this.goodsList.Add(newGoods);
+		
+		if(!this.types.Contains(type))	{
+			this.types.Add(type);
+		}
+	}
 }
 
 public class Customer
 {
+	public static int count = 0;
+	
 	public int id;
 	public int cpf;
 	public string name;
-	// public List<Review> reviews = new List<Review>();
+	public List<Review> reviews = new List<Review>();
+	
+	public Customer(){
+		count = count + 1;
+		this.id = count;
+	}
+	
+	public Customer(int cpf, string name){
+		count = count + 1;
+		this.id = count;
+		this.cpf = cpf;
+		this.name = name;
+	}
 	
 	public void addReview(int id_seller, int note, string text){
 		Review newReview = new Review(id_seller, this.id, note, text);
 		Database.reviews.Add(newReview);
+		this.reviews.Add(newReview);
 	}
 }
 
 public class Program
 {
+	public void seeSellerDetails_clicked(){
+		
+	}
+	
 	public static void Main()
 	{
 		Console.WriteLine("Hello World");
