@@ -1,0 +1,11 @@
+/home/isabelle/hackaton/vtex-hackaton/obj/Debug/netcoreapp2.2/vtex-hackaton.csprojAssemblyReference.cache
+/home/isabelle/hackaton/vtex-hackaton/obj/Debug/netcoreapp2.2/vtex-hackaton.csproj.CoreCompileInputs.cache
+/home/isabelle/hackaton/vtex-hackaton/obj/Debug/netcoreapp2.2/vtex-hackaton.AssemblyInfoInputs.cache
+/home/isabelle/hackaton/vtex-hackaton/obj/Debug/netcoreapp2.2/vtex-hackaton.AssemblyInfo.cs
+/home/isabelle/hackaton/vtex-hackaton/bin/Debug/netcoreapp2.2/vtex-hackaton.deps.json
+/home/isabelle/hackaton/vtex-hackaton/bin/Debug/netcoreapp2.2/vtex-hackaton.runtimeconfig.json
+/home/isabelle/hackaton/vtex-hackaton/bin/Debug/netcoreapp2.2/vtex-hackaton.runtimeconfig.dev.json
+/home/isabelle/hackaton/vtex-hackaton/bin/Debug/netcoreapp2.2/vtex-hackaton.dll
+/home/isabelle/hackaton/vtex-hackaton/bin/Debug/netcoreapp2.2/vtex-hackaton.pdb
+/home/isabelle/hackaton/vtex-hackaton/obj/Debug/netcoreapp2.2/vtex-hackaton.dll
+/home/isabelle/hackaton/vtex-hackaton/obj/Debug/netcoreapp2.2/vtex-hackaton.pdb
