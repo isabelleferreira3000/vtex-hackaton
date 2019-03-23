@@ -80,9 +80,10 @@ public class Seller
 	public static int count = 0;
 	
 	public int id;
-	public int cpf;
+	public string cpf;
 	public string name;
 	public string address;
+    double note;
 	public List<Review> reviews = new List<Review>();
 	public List<Goods> goodsList = new List<Goods>();
 	public List<string> types = new List<string>();
@@ -92,12 +93,15 @@ public class Seller
 		this.id = count;
 	}
 	
-	public Seller(int cpf, string name, string address){
+	public Seller(string cpf, string name, string address){
 		count = count + 1;
 		this.id = count;
 		this.cpf = cpf;
 		this.name = name;
 		this.address = address;
+        this.note = -1.0;
+
+        Database.sellers.Add(this);
 	}
 	
 	public void addGoods(string type){
@@ -109,6 +113,16 @@ public class Seller
 			this.types.Add(type);
 		}
 	}
+    public void updateNote(){
+        int totalReviews = this.reviews.Count;
+        int totalNote = 0;
+        if(totalReviews != 0){
+            foreach(Review review in this.reviews){
+                totalNote = totalNote + review.note;
+            }
+            this.note = totalNote/totalReviews;
+        }
+    }
 }
 
 public class Customer
@@ -116,7 +130,7 @@ public class Customer
 	public static int count = 0;
 	
 	public int id;
-	public int cpf;
+	public string cpf;
 	public string name;
 	public List<Review> reviews = new List<Review>();
 	
@@ -125,11 +139,13 @@ public class Customer
 		this.id = count;
 	}
 	
-	public Customer(int cpf, string name){
+	public Customer(string cpf, string name){
 		count = count + 1;
 		this.id = count;
 		this.cpf = cpf;
 		this.name = name;
+
+        Database.customers.Add(this);
 	}
 	
 	public void addReview(int id_seller, int note, string text){
@@ -141,12 +157,32 @@ public class Customer
 
 public class Program
 {
-	public void seeSellerDetails_clicked(){
-		
+	public static void populatePrototype(){
+        Seller seller1 = new Seller("04616069336", "Isabelle Ferreira", "Rua H8A, 103");
+        Seller seller2 = new Seller("12345678901", "Maria da Silva", "Rua Aruana, 133");
+        Seller seller3 = new Seller("23456789012", "Chico Castro", "Av Duque de Caxias, 300");
+
+        Customer customer1 = new Customer("11111111111", "Livia Pimentel");
+        Customer customer2 = new Customer("22222222222", "Ana Maria");
+        Customer customer3 = new Customer("33333333333", "Jonatan Rodrigues");
+        Customer customer4 = new Customer("44444444444", "Jose Maria Rocha");
+        
+
+        seller1.addGoods("roupas");
+        seller2.addGoods("eletronicos");
+        seller3.addGoods("comidas");
+
+        customer1.addReview(seller1.id, 10, "Muito receptiva!");
+        customer1.addReview(seller2.id, 5, "Meu carregador de celular veio quebrado");
+        customer1.addReview(seller3.id, 8, "Pastel muito bom, mas mto oleoso");
+
+        customer2.addReview(seller1.id, 9, "A blusa desbota mto rapido, mas eh linda");
 	}
 	
 	public static void Main()
 	{
+        Program.populatePrototype();
+        Console.WriteLine(Database.sellers[0].name);
 		Console.WriteLine("Hello World");
 	}
 }
