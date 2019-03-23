@@ -84,6 +84,9 @@ public class Seller
 	public string name;
 	public string address;
     public double note;
+
+    public double xCord;
+    public double yCord;
 	public List<Review> reviews = new List<Review>();
 	public List<Goods> goodsList = new List<Goods>();
 	public List<string> types = new List<string>();
@@ -93,12 +96,14 @@ public class Seller
 		this.id = count;
 	}
 	
-	public Seller(string cpf, string name, string address){
+	public Seller(string cpf, string name, string address, double xCord, double yCord){
 		count = count + 1;
 		this.id = count;
 		this.cpf = cpf;
 		this.name = name;
 		this.address = address;
+        this.xCord = xCord;
+        this.yCord = yCord;
         this.note = -1.0;
 
         Database.sellers.Add(this);
@@ -162,9 +167,9 @@ public class Customer
 public class Program
 {
 	public static void populatePrototype(){
-        Seller seller1 = new Seller("04616069336", "Isabelle Ferreira", "Rua H8A, 103");
-        Seller seller2 = new Seller("12345678901", "Maria da Silva", "Rua Aruana, 133");
-        Seller seller3 = new Seller("23456789012", "Chico Castro", "Av Duque de Caxias, 300");
+        Seller seller1 = new Seller("04616069336", "Isabelle Ferreira", "Rua H8A, 103", -23.202569, -45.884370);
+        Seller seller2 = new Seller("12345678901", "Maria da Silva", "Rua Aruana, 133", -24.202569, -46.884370);
+        Seller seller3 = new Seller("23456789012", "Chico Castro", "Av Duque de Caxias, 300", -20.202569, -46.884370);
 
         Customer customer1 = new Customer("11111111111", "Livia Pimentel");
         Customer customer2 = new Customer("22222222222", "Ana Maria");
@@ -182,6 +187,18 @@ public class Program
 
         customer2.addReview(seller1.id, 9, "A blusa desbota mto rapido, mas eh linda");
 	}
+
+    public List<Seller> searchSellersByType(string type){
+        List<Seller> sellersByType = new List<Seller>();
+
+        foreach(Seller seller in Database.sellers){
+            if(seller.types.Contains(type)){
+                sellersByType.Add(seller);
+            }
+        }
+
+        return sellersByType;
+    }
 	
 	public static void Main()
 	{
