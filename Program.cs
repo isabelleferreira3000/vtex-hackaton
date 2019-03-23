@@ -42,10 +42,10 @@ public class Review
 	public int id;
 	public int id_seller;
 	public int id_customer;
-	public int note;
+	public double note;
 	public string text;
 	
-	public Review(int id_seller, int id_customer, int note, string text){
+	public Review(int id_seller, int id_customer, double note, string text){
 		count = count + 1;
 		this.id = count;
 		this.id_seller = id_seller;
@@ -83,7 +83,7 @@ public class Seller
 	public string cpf;
 	public string name;
 	public string address;
-    double note;
+    public double note;
 	public List<Review> reviews = new List<Review>();
 	public List<Goods> goodsList = new List<Goods>();
 	public List<string> types = new List<string>();
@@ -115,12 +115,13 @@ public class Seller
 	}
     public void updateNote(){
         int totalReviews = this.reviews.Count;
-        int totalNote = 0;
+        double totalNote = 0;
         if(totalReviews != 0){
             foreach(Review review in this.reviews){
                 totalNote = totalNote + review.note;
             }
             this.note = totalNote/totalReviews;
+            
         }
     }
 }
@@ -148,10 +149,13 @@ public class Customer
         Database.customers.Add(this);
 	}
 	
-	public void addReview(int id_seller, int note, string text){
+	public void addReview(int id_seller, double note, string text){
 		Review newReview = new Review(id_seller, this.id, note, text);
 		Database.reviews.Add(newReview);
 		this.reviews.Add(newReview);
+        Seller seller = Database.getSellerById(id_seller);
+        seller.reviews.Add(newReview);
+        seller.updateNote();
 	}
 }
 
@@ -166,9 +170,9 @@ public class Program
         Customer customer2 = new Customer("22222222222", "Ana Maria");
         Customer customer3 = new Customer("33333333333", "Jonatan Rodrigues");
         Customer customer4 = new Customer("44444444444", "Jose Maria Rocha");
-        
 
         seller1.addGoods("roupas");
+        seller1.addGoods("eletronicos");
         seller2.addGoods("eletronicos");
         seller3.addGoods("comidas");
 
@@ -182,7 +186,7 @@ public class Program
 	public static void Main()
 	{
         Program.populatePrototype();
-        Console.WriteLine(Database.sellers[0].name);
+        Console.WriteLine(Database.sellers[0].note);
 		Console.WriteLine("Hello World");
 	}
 }
