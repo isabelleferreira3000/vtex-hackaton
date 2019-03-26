@@ -7,8 +7,8 @@ public class GoogleMaps : MonoBehaviour
 {
 
     // public Renderer renderer;
-    string key = "AIzaSyAPYUtU6TgGebSbWKmndo-bSbkDaQPMB0w"; //put your own API key here.
-
+    string key = ""; //put your own API key here.
+    
     public RawImage image;
     string url;
 
@@ -82,6 +82,11 @@ public class GoogleMaps : MonoBehaviour
 
     IEnumerator Start()
     {
+        if (key == "") {
+            Debug.LogWarning("There's no API key inserted");
+            return;
+        }
+        
         List<string> cores = new List<string>();
         cores.Add("blue");
         cores.Add("red");
